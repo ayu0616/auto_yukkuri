@@ -1,0 +1,4 @@
+<video name="${name}" ref="telop${id}" offset="${start_frame}/${frame_rate}s" duration="${sentence_duration}/${frame_rate}s" start="${start_frame}/${frame_rate}s" enabled="1">
+    <adjust-transform anchor="0 0" position="0 0" scale="1 1" />
+    <asset-clip lane="1" name="voice${id}" ref="voice${id}" duration="${sentence_duration}/${frame_rate}s" offset="${start_frame}/${frame_rate}s" start="0/${frame_rate}s" enabled="1" />
+</video>

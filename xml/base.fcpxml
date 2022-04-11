@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE fcpxml>
+<fcpxml version="1.6">
+    <import-options>
+        <option key="suppress warnings" value="1" />
+    </import-options>
+    <resources>
+        <format frameDuration="${frame_duration}" height="1080" id="f1" width="1920" />
+        <asset duration="${duration}" format="f1" hasAudio="1" hasVideo="0" id="a1" name="united_voice.wav" src="file://${voice_path}" />
+        <effect id="e1" name="Custom" uid=".../Titles.localized/Build In:Out.localized/Custom.localized/Custom.moti" />
+    </resources>
+    <library>
+        <event>
+            <project name="united_voice">
+                <sequence duration="${duration}" format="f1" tcStart="0s">
+                    <spine>${caption_elems}</spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

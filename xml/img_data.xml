@@ -1,0 +1,2 @@
+<asset id="telop${id}" name="telop${id}" src="file://${telop_path}" format="f1" duration="0/${frame_rate}s" start="0/${frame_rate}s" hasVideo="1" />
+<asset duration="${duration}/${frame_rate}s" hasAudio="1" hasVideo="0" id="voice${id}" name="voice${id}" src="file://${voice_path}" audioSources="1" audioChannels="1" format="f1" />
