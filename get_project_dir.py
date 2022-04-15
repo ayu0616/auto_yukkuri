@@ -1,4 +1,6 @@
 from tkinter import filedialog, Tk
+import os
+from my_helper import MyList
 
 
 def get_project_dir(current_dir: str):
@@ -7,7 +9,7 @@ def get_project_dir(current_dir: str):
     # ウィンドウサイズを0にする（Windows用の設定）
     root.geometry("0x0")
     # ウィンドウのタイトルバーを消す（Windows用の設定）
-    root.overrideredirect(1)
+    # root.overrideredirect(1)
     # ウィンドウを非表示に
     root.withdraw()
     root.update()
@@ -15,7 +17,10 @@ def get_project_dir(current_dir: str):
     root.lift()
     root.focus_force()
     # 動画プロジェクトのディレクトリ
-    project_dir = filedialog.askdirectory(initialdir=current_dir)
+    dir_list = MyList(current_dir.split("/"))
+    yukkuri_index = dir_list.index("ゆっくり解説")
+    yukkuri_dir = dir_list[:yukkuri_index+1].join("/")
+    project_dir = filedialog.askdirectory(initialdir=yukkuri_dir)
     root.update()
     # ディレクトリが選択されなかったらエラーを発生させる
     if not project_dir:
@@ -24,4 +29,4 @@ def get_project_dir(current_dir: str):
 
 
 if __name__ == "__main__":
-    print(get_project_dir())
+    print(get_project_dir(os.path.dirname(__file__)))

@@ -137,13 +137,8 @@ def create_all_telop(script_list: List[str], project_dir):
 
 
 if __name__ == "__main__":
-    # このpythonファイルがあるディレクトリ
-    current_abs_path = os.path.abspath(__file__)
-    current_abs_dir = os.path.dirname(current_abs_path)
-    parent_dir = os.path.dirname(os.path.dirname(current_abs_dir))  # 「ゆっくり解説」のディレクトリ
-
     # 動画プロジェクトのディレクトリ
-    project_dir = get_project_dir(parent_dir)
+    project_dir = get_project_dir(__file__)
     # セリフ1つ1つを配列にしたもの
     script_list = get_script_list(project_dir)
     # print(script_list)

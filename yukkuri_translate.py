@@ -1,17 +1,10 @@
 import re
 from my_helper import MyList
 from typing import List
-# from typing import TypeVar
-
-# T = TypeVar("T")
 
 
-# def to_my_list(value: T) -> MyList[T]:
-#     return MyList(value)
-
-
-def exclude_pattern(word: str, exclude_list: List[str]):
-    exclude_list = MyList(exclude_list)
+def exclude_pattern(word: str, excludes: List[str]):
+    exclude_list = MyList(excludes)
     # 除外したい単語がなかったらそのままreturn
     if not exclude_list:
         return word
@@ -20,7 +13,7 @@ def exclude_pattern(word: str, exclude_list: List[str]):
         if word not in exclude:
             raise Exception(f'"{exclude}"は{word}を含んでいません')
 
-    exclude_split = exclude_list.map(lambda x: x.split(word))
+    exclude_split = exclude_list.map(lambda x: MyList(x.split(word)))
     or_sign = "|"
     exclude_before = exclude_split.map(lambda x: x[0]).filter(lambda x: x)
     exclude_after = exclude_split.map(lambda x: x[1]).filter(lambda x: x)

@@ -1,6 +1,5 @@
 import math
-import glob
-from typing import Any, Dict
+from typing import Any, Dict, List, TypedDict
 from pydub import AudioSegment
 # import subprocess
 # from bs4 import BeautifulSoup
@@ -11,7 +10,7 @@ from download_voices import download_voices
 from get_project_dir import get_project_dir
 from get_script_list import get_script_list
 from helper import create_index
-from my_helper import MyList
+from my_helper import MyList, my_glob
 
 # このpythonファイルがあるディレクトリ
 current_abs_path = os.path.abspath(__file__)
@@ -24,14 +23,14 @@ project_dir = get_project_dir(current_abs_dir)
 # セリフ1つ1つを配列にしたもの
 script_list = get_script_list(project_dir)
 
-# ダウンロードする
-download_voices(script_list, project_dir)
-
 # テロップを作成する
 create_all_telop(script_list, project_dir)
 
+# ダウンロードする
+download_voices(script_list, project_dir)
+
 # voice_pathes = glob.glob(project_dir+"/voices/mp3/*")
-voice_pathes = MyList(glob.glob(project_dir+"/voices/*"))
+voice_pathes = my_glob(project_dir+"/voices/*")
 voice_pathes.sort()
 
 # 音声ファイルをwavに変換する（wavでダウンロードできるので変換しなくて良くなった）
@@ -63,9 +62,21 @@ for file, path in zip(voice_files, voice_pathes):
 # 各音声の再生時間を取得（前後に追加した空白部分の秒数も考慮する）
 play_time_list = voice_files.map(lambda x: x.duration_seconds)
 sum_play_time = 0
-caption_data = []
+
+
+class CaptionData(TypedDict):
+    text: str
+    character: str
+    start: int
+    end: int
+    duration: int
+    telop_path: str
+    voice_path: str
+
+
+caption_data: List[CaptionData] = []
 frame_rate = 60
-telop_pathes = MyList(glob.glob(project_dir + "/字幕/*.png"))
+telop_pathes = my_glob(project_dir + "/字幕/*.png")
 telop_pathes.sort()
 # 開始、終了フレームを取得
 for play_time, script, telop_path, voice_path in zip(play_time_list, script_list, telop_pathes, voice_pathes):

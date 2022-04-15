@@ -1,7 +1,6 @@
 import os
 from get_project_dir import get_project_dir
 from my_helper import MyList
-import re
 from pprint import pprint
 
 
@@ -14,7 +13,7 @@ def get_script_list(project_dir: str):
     # セリフ部分を取り出す
     script_list = script_list.match_filter(r"^[れま]：.*")
     # コメントを削除する（コメントは"// "で始まるもの）
-    script_list = script_list.map(lambda x: re.sub(r"\s*//.*", "", x))
+    script_list = script_list.sub(r"\s*//.*", "")
     return script_list
 
 
