@@ -5,6 +5,7 @@ import tkinter.simpledialog as simpledialog
 from tkinter import Tk
 from PIL import Image, ImageFont, ImageDraw
 import numpy as np
+from my_helper import MyList
 
 
 Number = Union[int, float]
@@ -56,8 +57,8 @@ def outlined_text_img(
     outer_width: Number = 0,
 ):
     """
-    外枠があるテキスト画像を生成する
-    解像度は(1920, 1080)
+    外枠があるテキスト画像を生成する\n
+    解像度は(1920, 1080)\n
     引数の"outer_〜"に指定がなければ1重、指定があれば2重
     """
     W = 1920
@@ -73,7 +74,8 @@ def outlined_text_img(
 
     draw_img.textsize(text, ImageFont.truetype(font_family, font_size))
 
-    space_size = (outer_stroke + inner_stroke) * 3 / 4
+    space_size = outer_stroke * 1.5
+    additional_space_size = (outer_stroke + inner_stroke) * 3 / 4
 
     # 文字入れ・外側の縁用
     if bool(outer_color) and bool(outer_stroke):
@@ -86,7 +88,7 @@ def outlined_text_img(
             stroke_width=outer_stroke,
             stroke_fill=outer_color,
             align="center",
-            spacing=0
+            spacing=space_size
         )
     # 文字入れ・内側の縁用
     draw_img.multiline_text(
@@ -98,8 +100,16 @@ def outlined_text_img(
         stroke_width=inner_stroke,
         stroke_fill=inner_color,
         align="center",
-        spacing=space_size
+        spacing=space_size+additional_space_size
     )
 
     out_img = Image.alpha_composite(img, a)
     return out_img
+
+
+def get_yukkuri_dir(current_dir: str = __file__):
+    """「ゆっくり実況」のディレクトリを返す"""
+    dir_list = MyList(current_dir.split("/"))
+    yukkuri_index = dir_list.index("ゆっくり解説")
+    yukkuri_dir = dir_list[:yukkuri_index+1].join("/")
+    return yukkuri_dir
