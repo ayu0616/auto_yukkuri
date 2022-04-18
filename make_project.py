@@ -1,6 +1,6 @@
 import os
 from my_helper import require_input, my_glob
-from helper import create_index, get_yukkuri_dir
+from helper import create_index
 import subprocess
 
 # 現在のディレクトリの絶対パスを取得
@@ -29,7 +29,7 @@ new_dir_name = f"{current_abs_dir}/{new_index}-{new_project_name}"
 os.mkdir(new_dir_name)
 
 # 台本ファイルを作成する
-script_path = f"{get_yukkuri_dir(__file__)}/台本/{new_index}-{new_project_name}.txt"
+script_path = f"/Users/OgawaAyumu/Library/Mobile Documents/com~apple~CloudDocs/yukkuri_scripts/{new_index}-{new_project_name}.txt"
 with open(script_path, "w") as f:
     f.write("")
 
