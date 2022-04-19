@@ -26,7 +26,7 @@ new_num = last_num + 1
 new_index = create_index(new_num, 3)
 
 # 新規プロジェクトのディレクトリを作成する
-new_dir_name = f"{current_abs_dir}/{new_index}-{new_project_name}"
+new_dir_name = f"{yukkuri_dir}/{new_index}-{new_project_name}"
 os.mkdir(new_dir_name)
 
 # 台本ファイルを作成する
@@ -34,8 +34,8 @@ script_path = f"/Users/OgawaAyumu/Library/Mobile Documents/com~apple~CloudDocs/y
 with open(script_path, "w") as f:
     f.write("")
 
+subprocess.run(f"ln -s '{script_path}' '{new_dir_name}'", shell=True)
 script_symbolic_path = new_dir_name+"/script.txt"
-subprocess.run(f"ln -s {script_path} {os.path.dirname(script_symbolic_path)}", shell=True)
 os.rename(f"{new_dir_name}/{new_index}-{new_project_name}.txt", script_symbolic_path)
 
 # 音声を入れるディレクトリを作成する
