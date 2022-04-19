@@ -1,9 +1,8 @@
 import re
 from my_helper import MyList
-from typing import List
 
 
-def exclude_pattern(word: str, excludes: List[str]):
+def exclude_pattern(word: str, *excludes: str):
     exclude_list = MyList(excludes)
     # 除外したい単語がなかったらそのままreturn
     if not exclude_list:
@@ -29,10 +28,12 @@ def yukkuri_translate(string: str):
     "ゆっくりで読み間違えがある単語を変換"
     trans_dict = {
         r"(\s*｜\s*)": "。",
+        r"([!?！？]+)": r"\1 ",
         r"(は)後(で)": r"\1あと\2",
+        r"〜": "ー",
         "一度": "いちど",
         "うp主": "うぷ主",
-        exclude_pattern("米", ["タイ米", "米国", "雑穀米", "米価"]): "こめ",
+        exclude_pattern("米", "タイ米", "米国", "雑穀米", "米価"): "こめ",
         "皆さん": "みなさん",
         "港町": "みなとまち",
         "幕領": "ばくりょう",
@@ -47,7 +48,12 @@ def yukkuri_translate(string: str):
         "では": "でわ",
         "竹串": "たけぐし",
         "弥山": "みせん",
-        "多すぎ": "おおすぎ"
+        "多すぎ": "おおすぎ",
+        r"奉([らりるれろ])": r"たてまつ\1",
+        "七佛": "しちぶつ",
+        "西國寺": "さいこくじ",
+        "海龍寺": "かいりゅうじ",
+        r"主(として)": r"しゅ\1"
     }
     for key, value in trans_dict.items():
         pattern = re.compile(key)

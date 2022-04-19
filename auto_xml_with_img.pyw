@@ -9,13 +9,13 @@ from create_telop import create_all_telop
 from download_voices import download_voices
 from get_project_dir import get_project_dir
 from get_script_list import get_script_list
-from helper import create_index
+from helper import create_index, get_yukkuri_dir
 from my_helper import MyList, my_glob
 
 # このpythonファイルがあるディレクトリ
 current_abs_path = os.path.abspath(__file__)
 current_abs_dir = os.path.dirname(current_abs_path)
-auto_yukkuri_path = current_abs_dir + "/auto_yukkuri"
+auto_yukkuri_path = get_yukkuri_dir(__file__) + "/auto_yukkuri"
 
 # 動画プロジェクトのディレクトリ
 project_dir = get_project_dir(current_abs_dir)
