@@ -1,6 +1,6 @@
 import os
 from my_helper import require_input, my_glob
-from helper import create_index
+from helper import create_index, get_yukkuri_dir
 import subprocess
 
 # 現在のディレクトリの絶対パスを取得
@@ -15,10 +15,11 @@ if not new_project_name:
     raise Exception("新規プロジェクト名を入力してください")
 
 # 最新回の番号を取得
-past_projects = my_glob(current_abs_dir+"/[0-9][0-9][0-9]-*/")
-past_projects = past_projects.map(lambda x: x.replace(current_abs_dir, "").replace("/", ""))
-sorted_projects = sorted(past_projects)
-last_num = int(sorted_projects[-1][:3])
+yukkuri_dir = get_yukkuri_dir(current_abs_dir)
+past_projects = my_glob(yukkuri_dir+"/[0-9][0-9][0-9]-*")
+past_project_names = past_projects.map(lambda x: x.split("/")[-1])
+past_project_names.sort()
+last_num = int(past_project_names[-1][:3])
 
 # 今回の番号
 new_num = last_num + 1
