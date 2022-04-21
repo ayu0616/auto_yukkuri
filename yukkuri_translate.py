@@ -27,7 +27,7 @@ def exclude_pattern(word: str, *excludes: str):
 def yukkuri_translate(string: str):
     "ゆっくりで読み間違えがある単語を変換"
     trans_dict = {
-        r"(\s*｜\s*)": "。",
+        r"(\s*[｜|]\s*)": "。",
         r"([!?！？]+)": r"\1。",
         r"(は)後(で)": r"\1あと\2",
         r"〜": "ー",
