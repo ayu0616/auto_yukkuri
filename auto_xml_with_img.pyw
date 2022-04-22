@@ -10,7 +10,7 @@ from download_voices import download_voices
 from get_project_dir import get_project_dir
 from get_script_list import get_script_list
 from helper import create_index, get_yukkuri_dir
-from my_helper import MyList, my_glob
+from my_helper import MyList, my_glob, read_text_file
 
 # このpythonファイルがあるディレクトリ
 current_abs_path = os.path.abspath(__file__)
@@ -25,6 +25,9 @@ script_list = get_script_list(project_dir)
 
 # テロップを作成する
 create_all_telop(script_list, project_dir)
+
+# テロップに合わせて編集された台本
+script_list = MyList(read_text_file(f"{auto_yukkuri_path}/fixed_script.txt").split("\n"))
 
 # ダウンロードする
 download_voices(script_list, project_dir)

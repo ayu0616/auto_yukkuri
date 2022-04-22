@@ -4,7 +4,7 @@ import numpy as np
 import os
 import shutil
 import budoux
-from helper import create_index, east_asian_len, outlined_text_img
+from helper import create_index, east_asian_len, outlined_text_img, get_yukkuri_dir
 from my_helper import MyList
 from typing import Dict, Tuple
 from get_project_dir import get_project_dir
@@ -112,12 +112,14 @@ class Script():
         self.text_lines = MyList(script[2:].split(separate_char))
 
     def arrange_text(self):
+        "テキストをテロップに合わせて調整する"
         new_lines: MyList[str] = MyList()
         for text in self.text_lines:
             new_lines += self.split_line(text)
         self.text_lines = new_lines
 
     def split_line(self, text: str):
+        "テキストの改行関係を処理する"
         text_length = east_asian_len(text)
         line_num = int(text_length // max_line_len + 1)  # 行数
         if line_num == 1:
@@ -166,6 +168,17 @@ class Script():
         new_text_lines = self.text_lines.divide_inside(*img_line_nums).map(lambda x: self.character + "：" + x.join("｜"))
         return new_text_lines.map(Script)
 
+    def to_plain_text(self):
+        "コンストラクタの引数に入れる文字列と同じ形式のテキストを返す"
+        return self.character + "：" + self.text_lines.join()
+
+
+def export_script(script_list: MyList[str]):
+    """編集後の台本を出力"""
+    yukkuri_dir = get_yukkuri_dir(__file__)
+    with open(f"{yukkuri_dir}/auto_yukkuri/fixed_script.txt", "w") as f:
+        f.write(script_list.join("\n"))
+
 
 def create_all_telop(script_list: MyList[str], project_dir):
     path = project_dir+"/字幕"
@@ -176,6 +189,8 @@ def create_all_telop(script_list: MyList[str], project_dir):
     scripts.map(lambda x: x.arrange_text())
     arranged_scripts = scripts.map(lambda x: x.split_class())
     flatten_scripts: MyList[Script] = arranged_scripts.flatten()
+
+    export_script(flatten_scripts.map(lambda x: x.to_plain_text()))
 
     for i, script in enumerate(flatten_scripts):
         text = script.text_lines.join("\n")
