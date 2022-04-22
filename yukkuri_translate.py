@@ -57,6 +57,9 @@ def yukkuri_translate(string: str):
         r"([一二三四五六七八九十百千万億兆]+)間堂": r"\1げんどう",
         "飛鳥": "あすか",
         "平安": "平安",
+        "三重塔": "さんじゅうのとう",
+        exclude_pattern("岩", "岩手", "岩石"): "いわ",
+        "足利義詮": "あしかがよしあきら",
     }
     for key, value in trans_dict.items():
         pattern = re.compile(key)
