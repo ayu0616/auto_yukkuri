@@ -54,7 +54,9 @@ def yukkuri_translate(string: str):
         "西國寺": "さいこくじ",
         "海龍寺": "かいりゅうじ",
         r"主(として)": r"しゅ\1",
-        r"([一二三四五六七八九十百千万億兆]+)間堂": r"\1げんどう"
+        r"([一二三四五六七八九十百千万億兆]+)間堂": r"\1げんどう",
+        "飛鳥": "あすか",
+        "平安": "平安",
     }
     for key, value in trans_dict.items():
         pattern = re.compile(key)
