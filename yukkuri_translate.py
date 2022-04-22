@@ -53,7 +53,8 @@ def yukkuri_translate(string: str):
         "七佛": "しちぶつ",
         "西國寺": "さいこくじ",
         "海龍寺": "かいりゅうじ",
-        r"主(として)": r"しゅ\1"
+        r"主(として)": r"しゅ\1",
+        r"([一二三四五六七八九十百千万億兆]+)間堂": r"\1げんどう"
     }
     for key, value in trans_dict.items():
         pattern = re.compile(key)
