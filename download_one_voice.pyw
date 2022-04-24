@@ -5,6 +5,7 @@ import os
 from pydub import AudioSegment
 
 script = require_input("台本（1行だけ）を入力")
+script = script.replace("\n", "")  # 改行が入っている場合、それを削除する
 
 character, sentence = script.split("：")
 translated_sentence = yukkuri_translate(sentence)
